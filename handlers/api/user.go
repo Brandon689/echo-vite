@@ -1,7 +1,7 @@
 package api
 
 import (
-	"github.com/Brandon689/appStructure/types"
+	"github.com/Brandon689/echo-vite/types"
 	"github.com/labstack/echo/v4"
 	"net/http"
 )

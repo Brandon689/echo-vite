@@ -1,4 +1,4 @@
-module github.com/Brandon689/appStructure
+module github.com/Brandon689/echo-vite
 
 go 1.21
 

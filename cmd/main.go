@@ -3,9 +3,9 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/Brandon689/appStructure/db"
-	"github.com/Brandon689/appStructure/handlers"
-	"github.com/Brandon689/appStructure/types"
+	"github.com/Brandon689/echo-vite/db"
+	"github.com/Brandon689/echo-vite/handlers"
+	"github.com/Brandon689/echo-vite/types"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 )
@@ -43,15 +43,11 @@ func main() {
 	fmt.Printf("User ID: %d, Name: %s, Email: %s\n", user.ID, user.Name, user.Email)
 
 	e := echo.New()
-
-	e.Static("/", "assets")
-
-	aboutHandler := &handlers.AboutHandler{}
-	homeHandler := &handlers.HomeHandler{}
-	handlers.SetupRoutes(e, homeHandler, aboutHandler)
-
+	handlers.SetupRoutes(e)
 	e.Use(middleware.Logger())
-
-	// Start Server
+	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
+		AllowOrigins: []string{"https://labstack.com", "https://labstack.net"},
+		AllowHeaders: []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept},
+	}))
 	e.Logger.Fatal(e.Start(":8082"))
 }
